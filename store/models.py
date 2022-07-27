@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import IntegerField
 
 
 class Promotion(models.Model):
@@ -14,8 +15,9 @@ class Collection(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField(null=True)
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    unit_price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
@@ -58,6 +60,7 @@ class Order(models.Model):
 class Address(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+    zip_code = models.IntegerField(null=True)
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE)
 
